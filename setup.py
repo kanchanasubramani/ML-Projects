@@ -1,0 +1,32 @@
+from setuptools import find_packages, setup
+from typing import List
+
+
+def get_requirements() -> List[str]:
+    requirement_list: List[str] = []
+
+    try:
+        with open("requirements.txt", "r") as file:
+            lines = file.readlines()
+
+            for line in lines:
+                requirement = line.strip()
+
+                if requirement and not requirement.startswith("#") and requirement == "-e .":
+                    requirement_list.append(requirement)
+
+    except FileNotFoundError:
+        print("requirements.txt file not found")
+
+    return requirement_list
+
+
+setup(
+    name="SampleProject",
+    version="0.0.1",
+    author="Kanchana",
+    author_email="kanchanasubramani007@gmail.com",
+    description="A sample ML project",
+    packages=find_packages(),
+    install_requires=get_requirements()
+)
